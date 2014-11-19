@@ -319,6 +319,7 @@ class TooltipOptions(BaseOptions):
         "enabled": bool,
         "footerFormat": str,
         "formatter": Formatter, 
+        "headerFormat": str,
         "pointFormat": str,
         "positioner": NotImplemented,
         "shadow": bool,

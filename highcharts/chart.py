@@ -292,6 +292,13 @@ class Highchart(object):
             self.options["title"].update_dict(text=title)
 
 
+    def subtitle(self, subtitle=None):
+        """ Bind Subtitle """
+        if not subtitle:
+            return self.options["subtitle"].text
+        else:
+            self.options["subtitle"].update_dict(text=subtitle)
+
     def colors(self, colors=None):
         """ Bind Color Array """
         if not colors:
