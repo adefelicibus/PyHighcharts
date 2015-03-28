@@ -1,4 +1,4 @@
-try: 
+try:
     import ujson as json
 except ImportError:
     try:
@@ -24,30 +24,30 @@ class BaseOptions(object):
         print json.dumps(self.__dict__,indent=4,sort_keys=True)
 
     def __validate_options__(self,k,v,ov):
-        if ov == NotImplemented: 
+        if ov == NotImplemented:
             raise OptionTypeError("Option Type Currently Not Supported: %s" % k)
         if isinstance(v,dict) and isinstance(ov,dict):
             keys = v.keys()
-            if len(keys) > 1: 
+            if len(keys) > 1:
                 raise NotImplementedError
             return isinstance(v[keys[0]],ov[keys[0]])
-        return isinstance(v, ov) 
+        return isinstance(v, ov)
 
     def update_dict(self,**kwargs):
-        for k, v in kwargs.items(): 
+        for k, v in kwargs.items():
             k = k.split("_")
             if k[0] in self.ALLOWED_OPTIONS:
                 if isinstance(self.ALLOWED_OPTIONS[k[0]],dict):
-                    if len(k) > 2:  
+                    if len(k) > 2:
                         raise NotImplementedError
                     else:
                         if self.__validate_options__(k[1],v,self.ALLOWED_OPTIONS[k[0]][k[1]]) or not v:
                             if not k[0] in self.__dict__:
                                 self.__dict__.update({k[0]:{}})
                             self.__dict__[k[0]].update({k[1]:v})
-                        else: 
+                        else:
                             print k, v
-                            raise OptionTypeError("Option Type Mismatch: Expected: %s" % self.ALLOWED_OPTIONS[k[0]][k[1]]) 
+                            raise OptionTypeError("Option Type Mismatch: Expected: %s" % self.ALLOWED_OPTIONS[k[0]][k[1]])
                 else:
                     if self.__validate_options__(k[0],v,self.ALLOWED_OPTIONS[k[0]]) or not v:
                         if isinstance(v,dict) and isinstance(self.ALLOWED_OPTIONS[k[0]],dict):
@@ -114,17 +114,17 @@ class ColorsOptions(BaseOptions):
     """ Special Case, this is simply just an array of colours """
     def __init__(self):
         # Predefined Colors
-        self.__dict__.update({"colors":[
-           '#2f7ed8', 
-           '#0d233a', 
-           '#8bbc21', 
-           '#910000', 
-           '#1aadce', 
-           '#492970',
-           '#f28f43', 
-           '#77a1e5', 
-           '#c42525', 
-           '#a6c96a'
+        self.__dict__.update({"colors": [
+           '#2f7ed8',  # azul
+           '#a6c96a',  # verde claro
+           '#f28f43',  # laranja
+           '#c42525',  # vermelho
+           '#0d233a',  # azul escuro
+           '#77a1e5',  # azul claro
+           '#8bbc21',  # verde
+           '#910000',  # vermelho escuro
+           '#1aadce',  # acul claro1
+           '#492970',  # roxo
         ]})
 
     def set_colors(self,colors):
@@ -202,7 +202,7 @@ class LegendOptions(BaseOptions):
         "itemMarginBottom": int,
         "itemMarginTop": int,
         "itemStyle": {
-            "color": str,   
+            "color": str,
         },
         "itemWidth": int,
         "labelFormatter": Formatter,
@@ -318,7 +318,7 @@ class TooltipOptions(BaseOptions):
         "crosshairs": NotImplemented,
         "enabled": bool,
         "footerFormat": str,
-        "formatter": Formatter, 
+        "formatter": Formatter,
         "headerFormat": str,
         "pointFormat": str,
         "positioner": NotImplemented,
@@ -491,7 +491,7 @@ class yAxisOptions(BaseOptions):
             },
             "text": (str, bool),
         },
-        "type": str,    
+        "type": str,
     }
 
 
